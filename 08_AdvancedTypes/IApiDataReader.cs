@@ -1,7 +1,7 @@
-﻿namespace _08_AdvancedTypes
+﻿namespace _08_AdvancedTypes;
+
+public interface IApiDataReader
 {
-    public interface IApiDataReader
-    {
-        Task<string> ReadAsync(string baseAddress,string requestUri);
-    }
+    Task<string> ReadAsync(string baseAddress, string requestUri);
 }
+

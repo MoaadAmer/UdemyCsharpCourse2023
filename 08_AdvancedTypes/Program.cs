@@ -21,10 +21,14 @@ var tablePrinter = new UniversalTablePrinter(planets);
 tablePrinter.PrintToConsole();
 
 
-Console.WriteLine("The statistics of which property would you like to see?" +
-    $"{Environment.NewLine}population" +
-    $"{Environment.NewLine}diameter" +
-    $"{Environment.NewLine}surface water");
+Console.WriteLine(
+    """
+    The statistics of which property would you like to see?
+    population
+    diameter
+    surface water
+    """
+    );
 
 
 string desiredStat = Console.ReadLine().ToLower();
