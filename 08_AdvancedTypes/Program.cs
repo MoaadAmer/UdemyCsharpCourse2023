@@ -1,5 +1,5 @@
-﻿using _08_AdvancedTypes;
-using _08_AdvancedTypes.DTO;
+﻿using AdvancedTypes;
+using AdvancedTypes.DTO;
 using System.Text.Json;
 
 IApiDataReader starwarsAPI = new StarWarsApiDataReader();

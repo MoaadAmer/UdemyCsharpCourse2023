@@ -1,4 +1,4 @@
-﻿namespace _08_AdvancedTypes;
+﻿namespace AdvancedTypes;
 
 public interface IApiDataReader
 {

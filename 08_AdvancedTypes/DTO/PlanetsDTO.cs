@@ -1,4 +1,4 @@
-﻿namespace _08_AdvancedTypes.DTO;
+﻿namespace AdvancedTypes.DTO;
 
 public readonly struct PlanetsDTO
 {

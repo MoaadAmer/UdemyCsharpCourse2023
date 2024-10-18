@@ -1,4 +1,4 @@
-﻿using _08_AdvancedTypes;
+﻿using AdvancedTypes;
 
 public class StarWarsApiDataReader : IApiDataReader
 {
