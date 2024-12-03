@@ -1,0 +1,7 @@
+thanks for conducting a code review, i have some questions:
+1- in which class you dont see propteris with PascalCase. i only see that in the DTO and i created that using the 'Paste special ' in visual studio it pastes a json as class.
+2- namespaces done.
+3- about the baseaddress based on what you made that decision?  if i change that to be in the constructor it will work with one site. i want this behavior to be specically for the star wars api but since its same address but not for interface ?
+4- Rawstring done.
+5- for the int.TryParse i have iterated before on the list to and validated that the values assigned is an actual number or an empty string.
+later i use it again . the reurn value of int.TryParse as written in the doc 
