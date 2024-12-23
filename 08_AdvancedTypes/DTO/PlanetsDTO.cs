@@ -1,29 +1,32 @@
 ﻿namespace AdvancedTypes.DTO;
 
-public readonly struct PlanetsDTO
-{
-    public readonly int count { get; init; }
-    public readonly string next { get; init; }
-    public readonly object previous { get; init; }
-    public readonly Result[] results { get; init; }
 
+public class PlanetsDTO
+{
+    public int count { get; set; }
+    public string next { get; set; }
+    public object previous { get; set; }
+    public Result[] results { get; set; }
 }
 
-public readonly struct Result
+public class Result
 {
-    public readonly string name { get; init; }
-    public readonly string rotation_period { get; init; }
-    public readonly string orbital_period { get; init; }
-    public readonly string diameter { get; init; }
-    public readonly string climate { get; init; }
-    public readonly string gravity { get; init; }
-    public readonly string terrain { get; init; }
-    public readonly string surface_water { get; init; }
-    public readonly string population { get; init; }
-    public readonly string[] residents { get; init; }
-    public readonly string[] films { get; init; }
-    public readonly DateTime created { get; init; }
-    public readonly DateTime edited { get; init; }
-    public readonly string url { get; init; }
+    public string name { get; set; }
+    public string rotation_period { get; set; }
+    public string orbital_period { get; set; }
+    public string diameter { get; set; }
+    public string climate { get; set; }
+    public string gravity { get; set; }
+    public string terrain { get; set; }
+    public string surface_water { get; set; }
+    public string population { get; set; }
+    public string[] residents { get; set; }
+    public string[] films { get; set; }
+    public DateTime created { get; set; }
+    public DateTime edited { get; set; }
+    public string url { get; set; }
 }
+
+
+
 

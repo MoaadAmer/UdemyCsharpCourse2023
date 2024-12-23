@@ -1,10 +1,10 @@
-﻿using AdvancedTypes;
+﻿using _08_AdvancedTypes.API;
 
-public class StarWarsApiDataReader : IApiDataReader
+public class APIDataReader : IApiDataReader
 {
     private HttpClient _httpClient;
 
-    public StarWarsApiDataReader()
+    public APIDataReader()
     {
         _httpClient = new HttpClient();
     }

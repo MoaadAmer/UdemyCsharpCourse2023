@@ -1,10 +1,21 @@
-﻿using AdvancedTypes;
+﻿using _08_AdvancedTypes.API;
 using AdvancedTypes.DTO;
 using System.Text.Json;
 
-IApiDataReader starWarsAPI = new StarWarsApiDataReader();
-
-string responseContent = await starWarsAPI.ReadAsync("https://swapi.dev/api/", "planets");
+IApiDataReader apiDataReader;
+string baseAddress = "https://swapi.dev/";
+string endPoint = "api/planets";
+string responseContent;
+try
+{
+    apiDataReader = new APIDataReader();
+    responseContent = await apiDataReader.ReadAsync(baseAddress, endPoint);
+}
+catch (HttpRequestException)
+{
+    apiDataReader = new MockStarWarsApiDataReader();
+    responseContent = await apiDataReader.ReadAsync(baseAddress, endPoint);
+}
 
 
 PlanetsDTO planetsData = JsonSerializer.Deserialize<PlanetsDTO>(responseContent);
@@ -16,9 +27,9 @@ IEnumerable<Planet> planets =
          new Planet()
          {
              Name = p.name,
-             Diameter = int.TryParse(p.diameter, out int diameter) ? diameter + "" : "",
-             SurfaceWater = int.TryParse(p.surface_water, out int surfaceWater) ? surfaceWater + "" : "",
-             Population = long.TryParse(p.population, out long population) ? population + "" : ""
+             Diameter = int.TryParse(p.diameter, out int diameter) ? diameter.ToString() : "",
+             SurfaceWater = int.TryParse(p.surface_water, out int surfaceWater) ? surfaceWater.ToString() : "",
+             Population = long.TryParse(p.population, out long population) ? population.ToString() : ""
          });
 
 
@@ -42,18 +53,18 @@ string desiredStat = Console.ReadLine().ToLower();
 switch (desiredStat)
 {
     case "population":
-        Planet pMin = planets.First();
-        Planet pMax = planets.First();
+        Planet pMin = planets.First(p => long.TryParse(p.Population, out long value));
+        Planet pMax = planets.First(p => long.TryParse(p.Population, out long value));
         foreach (Planet planet in planets)
         {
-            if (int.TryParse(planet.Population, out int currentValue))
+            if (long.TryParse(planet.Population, out long currentValue))
             {
-                int.TryParse(pMin.Population, out int min);
+                long.TryParse(pMin.Population, out long min);
                 if (currentValue < min)
                 {
                     pMin = planet;
                 }
-                int.TryParse(pMax.Population, out int max);
+                long.TryParse(pMax.Population, out long max);
                 if (currentValue > max)
                 {
                     pMax = planet;
@@ -65,8 +76,8 @@ switch (desiredStat)
         Console.WriteLine($"Min population is {pMin.Population} (planet:{pMin.Name})");
         break;
     case "diameter":
-        pMin = planets.First();
-        pMax = planets.First();
+        pMin = planets.First(p => int.TryParse(p.Diameter, out int value));
+        pMax = planets.First(p => int.TryParse(p.Diameter, out int value));
         foreach (Planet planet in planets)
         {
             if (int.TryParse(planet.Diameter, out int currentValue))
@@ -87,8 +98,8 @@ switch (desiredStat)
         Console.WriteLine($"Min diameter is {pMin.Diameter} (diameter:{pMin.Name})");
         break;
     case "surface water":
-        pMin = planets.First();
-        pMax = planets.First();
+        pMin = planets.First(p => int.TryParse(p.SurfaceWater, out int value));
+        pMax = planets.First(p => int.TryParse(p.SurfaceWater, out int value));
         foreach (Planet planet in planets)
         {
             if (int.TryParse(planet.SurfaceWater, out int currentValue))
