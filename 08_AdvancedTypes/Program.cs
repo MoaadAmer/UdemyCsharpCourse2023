@@ -11,8 +11,14 @@ try
     apiDataReader = new APIDataReader();
     responseContent = await apiDataReader.ReadAsync(baseAddress, endPoint);
 }
-catch (HttpRequestException)
+catch (HttpRequestException ex)
 {
+    Console.WriteLine($"""
+                      API Request was unsuccessful.
+                      Switching to mock data.
+                      Exception Message : {ex.Message}
+
+                      """);
     apiDataReader = new MockStarWarsApiDataReader();
     responseContent = await apiDataReader.ReadAsync(baseAddress, endPoint);
 }
