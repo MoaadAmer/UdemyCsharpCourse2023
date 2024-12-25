@@ -8,7 +8,7 @@ public class StarWarsPlanetsStatsApp
     private readonly IApiDataReader _apiReader;
     private readonly IApiDataReader _mockReader;
 
-    public StarWarsPlanetsStatsApp(IApiDataReader apiReader,IApiDataReader mockReader)
+    public StarWarsPlanetsStatsApp(IApiDataReader apiReader, IApiDataReader mockReader)
     {
         _apiReader = apiReader;
         _mockReader = mockReader;
@@ -20,7 +20,7 @@ public class StarWarsPlanetsStatsApp
         string responseContent;
         try
         {
-          
+
             responseContent = await _apiReader.ReadAsync(baseAddress, endPoint);
         }
         catch (HttpRequestException ex)
@@ -31,31 +31,21 @@ public class StarWarsPlanetsStatsApp
                       Exception Message : {ex.Message}
 
                       """);
-        
+
             responseContent = await _mockReader.ReadAsync(baseAddress, endPoint);
         }
 
 
         PlanetsDTO planetsData = JsonSerializer.Deserialize<PlanetsDTO>(responseContent);
+        IEnumerable<Planet> planets = ToPlanets(planetsData);
 
+        //var tablePrinter = new UniversalTablePrinter(planets);
+        //tablePrinter.PrintToConsole();
 
-        IEnumerable<Planet> planets =
-             planetsData
-            .results.Select(p =>
-                 new Planet()
-                 {
-                     Name = p.name,
-                     Diameter = int.TryParse(p.diameter, out int diameter) ? diameter.ToString() : "",
-                     SurfaceWater = int.TryParse(p.surface_water, out int surfaceWater) ? surfaceWater.ToString() : "",
-                     Population = long.TryParse(p.population, out long population) ? population.ToString() : ""
-                 });
-
-
-
-
-
-        var tablePrinter = new UniversalTablePrinter(planets);
-        tablePrinter.PrintToConsole();
+        foreach (var item in planets)
+        {
+            Console.WriteLine(item);
+        }
 
         Console.WriteLine(
             """
@@ -71,69 +61,20 @@ public class StarWarsPlanetsStatsApp
         switch (desiredStat)
         {
             case "population":
-                Planet pMin = planets.First(p => long.TryParse(p.Population, out long value));
-                Planet pMax = planets.First(p => long.TryParse(p.Population, out long value));
-                foreach (Planet planet in planets)
-                {
-                    if (long.TryParse(planet.Population, out long currentValue))
-                    {
-                        long.TryParse(pMin.Population, out long min);
-                        if (currentValue < min)
-                        {
-                            pMin = planet;
-                        }
-                        long.TryParse(pMax.Population, out long max);
-                        if (currentValue > max)
-                        {
-                            pMax = planet;
-                        }
-                    }
-
-                }
+                Planet pMin = planets.MinBy(p => p.Population);
+                Planet pMax = planets.MaxBy(p => p.Population);
                 Console.WriteLine($"Max population is {pMax.Population} (planet:{pMax.Name})");
                 Console.WriteLine($"Min population is {pMin.Population} (planet:{pMin.Name})");
                 break;
             case "diameter":
-                pMin = planets.First(p => int.TryParse(p.Diameter, out int value));
-                pMax = planets.First(p => int.TryParse(p.Diameter, out int value));
-                foreach (Planet planet in planets)
-                {
-                    if (int.TryParse(planet.Diameter, out int currentValue))
-                    {
-                        int.TryParse(pMin.Diameter, out int min);
-                        if (currentValue < min)
-                        {
-                            pMin = planet;
-                        }
-                        int.TryParse(pMax.Diameter, out int max);
-                        if (currentValue > max)
-                        {
-                            pMax = planet;
-                        }
-                    }
-                }
+                pMin = planets.MinBy(p => p.Diameter);
+                pMax = planets.MaxBy(p => p.Diameter);
                 Console.WriteLine($"Max diameter is {pMax.Diameter} (diameter:{pMax.Name})");
                 Console.WriteLine($"Min diameter is {pMin.Diameter} (diameter:{pMin.Name})");
                 break;
             case "surface water":
-                pMin = planets.First(p => int.TryParse(p.SurfaceWater, out int value));
-                pMax = planets.First(p => int.TryParse(p.SurfaceWater, out int value));
-                foreach (Planet planet in planets)
-                {
-                    if (int.TryParse(planet.SurfaceWater, out int currentValue))
-                    {
-                        int.TryParse(pMin.SurfaceWater, out int min);
-                        if (currentValue < min)
-                        {
-                            pMin = planet;
-                        }
-                        int.TryParse(pMax.SurfaceWater, out int max);
-                        if (currentValue > max)
-                        {
-                            pMax = planet;
-                        }
-                    }
-                }
+                pMin = planets.MinBy(p => p.SurfaceWater);
+                pMax = planets.MaxBy(p => p.SurfaceWater);
                 Console.WriteLine($"Max surface water is {pMax.SurfaceWater} (surface water:{pMax.Name})");
                 Console.WriteLine($"Min surface water is {pMin.SurfaceWater} (surface water:{pMin.Name})");
                 break;
@@ -141,5 +82,22 @@ public class StarWarsPlanetsStatsApp
                 Console.WriteLine("Invalid choice");
                 break;
         }
+    }
+
+
+    private IEnumerable<Planet> ToPlanets(PlanetsDTO? planetsData)
+    {
+        if (planetsData == null)
+        {
+            throw new ArgumentNullException(nameof(planetsData));
+        }
+        var planets = new List<Planet>();
+        foreach (var planetsDTO in planetsData.results)
+        {
+            var planet = (Planet)planetsDTO;
+            planets.Add(planet);
+        }
+        return planets;
+
     }
 }

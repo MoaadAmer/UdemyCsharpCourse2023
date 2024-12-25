@@ -18,7 +18,7 @@ public class UniversalTablePrinter
             Type type = firstElement.GetType();
             PropertyInfo[] props = type.GetProperties();
 
-            //add table columns name
+            //get table columns name
             StringBuilder columns = new StringBuilder();
             foreach (PropertyInfo prop in props)
             {
@@ -28,7 +28,7 @@ public class UniversalTablePrinter
             columns.Append(new string('-', (_columnLength + 1) * props.Length));
             Console.WriteLine(columns);
 
-            //add the data
+            //get table data
             StringBuilder rows = new StringBuilder();
 
             foreach (var item in _data)
