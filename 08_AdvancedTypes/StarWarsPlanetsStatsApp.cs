@@ -35,7 +35,6 @@ public class StarWarsPlanetsStatsApp
             responseContent = await _mockReader.ReadAsync(baseAddress, endPoint);
         }
 
-
         PlanetsDTO planetsData = JsonSerializer.Deserialize<PlanetsDTO>(responseContent);
         IEnumerable<Planet> planets = ToPlanets(planetsData);
 
@@ -56,34 +55,37 @@ public class StarWarsPlanetsStatsApp
     """
             );
 
-
-        string desiredStat = Console.ReadLine().ToLower();
+        string? desiredStat = Console.ReadLine();
+        desiredStat = desiredStat?.ToLower();
         switch (desiredStat)
         {
             case "population":
-                Planet pMin = planets.MinBy(p => p.Population);
-                Planet pMax = planets.MaxBy(p => p.Population);
-                Console.WriteLine($"Max population is {pMax.Population} (planet:{pMax.Name})");
-                Console.WriteLine($"Min population is {pMin.Population} (planet:{pMin.Name})");
+                ShowStats(desiredStat, planets, (Planet p) => p.Population);
                 break;
             case "diameter":
-                pMin = planets.MinBy(p => p.Diameter);
-                pMax = planets.MaxBy(p => p.Diameter);
-                Console.WriteLine($"Max diameter is {pMax.Diameter} (diameter:{pMax.Name})");
-                Console.WriteLine($"Min diameter is {pMin.Diameter} (diameter:{pMin.Name})");
+                ShowStats(desiredStat, planets, (Planet p) => p.Diameter);
                 break;
             case "surface water":
-                pMin = planets.MinBy(p => p.SurfaceWater);
-                pMax = planets.MaxBy(p => p.SurfaceWater);
-                Console.WriteLine($"Max surface water is {pMax.SurfaceWater} (surface water:{pMax.Name})");
-                Console.WriteLine($"Min surface water is {pMin.SurfaceWater} (surface water:{pMin.Name})");
+                ShowStats(desiredStat, planets, (Planet p) => p.SurfaceWater);
                 break;
             default:
                 Console.WriteLine("Invalid choice");
                 break;
+
         }
+
+
+
     }
 
+    private void ShowStats(string propertyName, IEnumerable<Planet> planets, Func<Planet, long?> propertySelector)
+    {
+
+        Planet pMin = planets.MinBy(propertySelector);
+        Planet pMax = planets.MaxBy(propertySelector);
+        Console.WriteLine($"Max {propertyName} is {propertySelector(pMax)} ({propertyName}:{pMax.Name})");
+        Console.WriteLine($"Min {propertyName} is {propertySelector(pMin)} ({propertyName}:{pMin.Name})");
+    }
 
     private IEnumerable<Planet> ToPlanets(PlanetsDTO? planetsData)
     {
