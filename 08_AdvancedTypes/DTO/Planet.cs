@@ -10,7 +10,7 @@ public readonly record struct Planet
 
     public Planet(string name, int? diameter, int? surfaceWater, long? population)
     {
-        if (name == null) throw new ArgumentNullException(nameof(name));
+        ArgumentNullException.ThrowIfNull(name);
         Name = name;
         Diameter = diameter;
         SurfaceWater = surfaceWater;

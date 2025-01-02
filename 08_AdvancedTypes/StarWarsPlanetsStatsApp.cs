@@ -3,16 +3,9 @@ using _08_AdvancedTypes.API;
 using AdvancedTypes.DTO;
 using System.Text.Json;
 
-public class StarWarsPlanetsStatsApp
+public class StarWarsPlanetsStatsApp(IApiDataReader apiReader, IApiDataReader mockReader)
 {
-    private readonly IApiDataReader _apiReader;
-    private readonly IApiDataReader _mockReader;
 
-    public StarWarsPlanetsStatsApp(IApiDataReader apiReader, IApiDataReader mockReader)
-    {
-        _apiReader = apiReader;
-        _mockReader = mockReader;
-    }
     public async Task RunAsync()
     {
         string baseAddress = "https://swapi.dev/";
@@ -21,7 +14,7 @@ public class StarWarsPlanetsStatsApp
         try
         {
 
-            responseContent = await _apiReader.ReadAsync(baseAddress, endPoint);
+            responseContent = await apiReader.ReadAsync(baseAddress, endPoint);
         }
         catch (HttpRequestException ex)
         {
@@ -32,10 +25,10 @@ public class StarWarsPlanetsStatsApp
 
                       """);
 
-            responseContent = await _mockReader.ReadAsync(baseAddress, endPoint);
+            responseContent = await mockReader.ReadAsync(baseAddress, endPoint);
         }
 
-        PlanetsDTO planetsData = JsonSerializer.Deserialize<PlanetsDTO>(responseContent);
+        PlanetsDTO? planetsData = JsonSerializer.Deserialize<PlanetsDTO>(responseContent);
         IEnumerable<Planet> planets = ToPlanets(planetsData);
 
         //var tablePrinter = new UniversalTablePrinter(planets);
@@ -59,13 +52,12 @@ public class StarWarsPlanetsStatsApp
 
         string? desiredStat = Console.ReadLine();
         desiredStat = desiredStat?.ToLower();
-        if (desiredStat == null || !propertyNameToSelectorsMapping.ContainsKey(desiredStat))
+        if (desiredStat == null || !propertyNameToSelectorsMapping.TryGetValue(desiredStat, out Func<Planet, long?>? propertySelector))
         {
             Console.WriteLine("Invalid choice");
         }
         else
         {
-            Func<Planet, long?> propertySelector = propertyNameToSelectorsMapping[desiredStat];
             ShowStats("Max",
                   planets.MaxBy(propertySelector)
                 , propertySelector
@@ -79,24 +71,14 @@ public class StarWarsPlanetsStatsApp
         }
     }
 
-    private void ShowStats(string descriptor, Planet planet, Func<Planet, long?> propertySelector, string propertyName)
+    private static void ShowStats(string descriptor, Planet planet, Func<Planet, long?> propertySelector, string propertyName)
     {
         Console.WriteLine($"{descriptor} {propertyName} is {propertySelector(planet)} ({propertyName}:{planet.Name})");
     }
 
-    private IEnumerable<Planet> ToPlanets(PlanetsDTO? planetsData)
+    private static IEnumerable<Planet> ToPlanets(PlanetsDTO? planetsData)
     {
-        if (planetsData == null)
-        {
-            throw new ArgumentNullException(nameof(planetsData));
-        }
-        var planets = new List<Planet>();
-        foreach (var planetsDTO in planetsData.results)
-        {
-            var planet = (Planet)planetsDTO;
-            planets.Add(planet);
-        }
-        return planets;
-
+        ArgumentNullException.ThrowIfNull(planetsData);
+        return planetsData.results.Select(planet => (Planet)planet);
     }
 }
