@@ -65,16 +65,23 @@ public class StarWarsPlanetsStatsApp
         }
         else
         {
-            ShowStats(desiredStat, planets, propertyNameToSelectorsMapping[desiredStat]);
+            Func<Planet, long?> propertySelector = propertyNameToSelectorsMapping[desiredStat];
+            ShowStats("Max",
+                  planets.MaxBy(propertySelector)
+                , propertySelector
+                , desiredStat);
+
+
+            ShowStats("Min",
+                planets.MinBy(propertySelector)
+                , propertySelector
+                , desiredStat);
         }
     }
 
-    private void ShowStats(string propertyName, IEnumerable<Planet> planets, Func<Planet, long?> propertySelector)
+    private void ShowStats(string descriptor, Planet planet, Func<Planet, long?> propertySelector, string propertyName)
     {
-        Planet pMin = planets.MinBy(propertySelector);
-        Planet pMax = planets.MaxBy(propertySelector);
-        Console.WriteLine($"Max {propertyName} is {propertySelector(pMax)} ({propertyName}:{pMax.Name})");
-        Console.WriteLine($"Min {propertyName} is {propertySelector(pMin)} ({propertyName}:{pMin.Name})");
+        Console.WriteLine($"{descriptor} {propertyName} is {propertySelector(planet)} ({propertyName}:{planet.Name})");
     }
 
     private IEnumerable<Planet> ToPlanets(PlanetsDTO? planetsData)
