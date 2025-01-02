@@ -17,7 +17,7 @@ public class MockStarWarsApiDataReader : IApiDataReader
         if (requestUri != ExpectedRequestUri)
         {
             throw new ArgumentException(
-               $"Resuest URI can only be {ExpectedRequestUri}");
+               $"Request URI can only be {ExpectedRequestUri}");
         }
 
         return Task.FromResult(Result);

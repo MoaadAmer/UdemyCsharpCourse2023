@@ -19,7 +19,7 @@ public class UniversalTablePrinter
             PropertyInfo[] props = type.GetProperties();
 
             //get table columns name
-            StringBuilder columns = new StringBuilder();
+            StringBuilder columns = new();
             foreach (PropertyInfo prop in props)
             {
                 columns.Append($"{prop.Name,-_columnLength}|");
@@ -29,7 +29,7 @@ public class UniversalTablePrinter
             Console.WriteLine(columns);
 
             //get table data
-            StringBuilder rows = new StringBuilder();
+            StringBuilder rows = new();
 
             foreach (var item in _data)
             {
