@@ -46,41 +46,31 @@ public class StarWarsPlanetsStatsApp
             Console.WriteLine(item);
         }
 
-        Console.WriteLine(
-            """
-    The statistics of which property would you like to see?
-    population
-    diameter
-    surface water
-    """
-            );
+        var propertyNameToSelectorsMapping = new Dictionary<string, Func<Planet, long?>>()
+        {
+            ["population"] = planet => planet.Population,
+            ["diameter"] = planet => planet.Diameter,
+            ["surface water"] = planet => planet.SurfaceWater,
+
+        };
+
+        Console.WriteLine("The statistics of which property would you like to see ?");
+        Console.WriteLine(string.Join(Environment.NewLine, propertyNameToSelectorsMapping.Keys));
 
         string? desiredStat = Console.ReadLine();
         desiredStat = desiredStat?.ToLower();
-        switch (desiredStat)
+        if (desiredStat == null || !propertyNameToSelectorsMapping.ContainsKey(desiredStat))
         {
-            case "population":
-                ShowStats(desiredStat, planets, (Planet p) => p.Population);
-                break;
-            case "diameter":
-                ShowStats(desiredStat, planets, (Planet p) => p.Diameter);
-                break;
-            case "surface water":
-                ShowStats(desiredStat, planets, (Planet p) => p.SurfaceWater);
-                break;
-            default:
-                Console.WriteLine("Invalid choice");
-                break;
-
+            Console.WriteLine("Invalid choice");
         }
-
-
-
+        else
+        {
+            ShowStats(desiredStat, planets, propertyNameToSelectorsMapping[desiredStat]);
+        }
     }
 
     private void ShowStats(string propertyName, IEnumerable<Planet> planets, Func<Planet, long?> propertySelector)
     {
-
         Planet pMin = planets.MinBy(propertySelector);
         Planet pMax = planets.MaxBy(propertySelector);
         Console.WriteLine($"Max {propertyName} is {propertySelector(pMax)} ({propertyName}:{pMax.Name})");
