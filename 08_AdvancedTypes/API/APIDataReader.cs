@@ -1,8 +1,8 @@
-﻿using _08_AdvancedTypes.API;
+﻿namespace _08_AdvancedTypes.API;
 
 public class APIDataReader : IApiDataReader
 {
-    private HttpClient _httpClient;
+    private readonly HttpClient _httpClient;
 
     public APIDataReader()
     {
@@ -16,4 +16,3 @@ public class APIDataReader : IApiDataReader
         return await httpResponse.Content.ReadAsStringAsync();
     }
 }
-

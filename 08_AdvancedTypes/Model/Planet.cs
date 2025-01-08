@@ -1,5 +1,9 @@
-﻿using _08_AdvancedTypes;
-using AdvancedTypes.DTO;
+﻿using _08_AdvancedTypes.DTO;
+using _08_AdvancedTypes.Utilities;
+
+
+namespace _08_AdvancedTypes.Model;
+
 
 public readonly record struct Planet
 {
@@ -28,4 +32,5 @@ public readonly record struct Planet
         return new Planet(name, diameter, surfaceWater, population);
 
     }
+
 }

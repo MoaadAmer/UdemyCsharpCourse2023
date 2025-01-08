@@ -1,4 +1,4 @@
-﻿namespace AdvancedTypes.DTO;
+﻿namespace _08_AdvancedTypes.DTO;
 
 
 public class PlanetsDTO

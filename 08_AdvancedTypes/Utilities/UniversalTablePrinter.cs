@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 using System.Text;
-
+namespace _08_AdvancedTypes.Utilities;
 public class UniversalTablePrinter
 {
     private readonly IEnumerable<object> _data;
