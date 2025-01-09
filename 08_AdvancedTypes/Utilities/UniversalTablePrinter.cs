@@ -1,47 +1,31 @@
 ﻿using System.Reflection;
-using System.Text;
 namespace _08_AdvancedTypes.Utilities;
 public class UniversalTablePrinter
 {
-    private readonly IEnumerable<object> _data;
-    private const int _columnLength = 20;
+    private const int _columnWidth = 15;
 
-    public UniversalTablePrinter(IEnumerable<object> data)
+    public static void PrintToConsole<T>(IEnumerable<T> data)
     {
-        _data = data;
-    }
-    public void PrintToConsole()
-    {
-        object firstElement = _data.First();
-        if (firstElement is not null)
+        PropertyInfo[] properties = typeof(T).GetProperties();
+
+        //Print table columns name
+        foreach (PropertyInfo prop in properties)
         {
-            Type type = firstElement.GetType();
-            PropertyInfo[] props = type.GetProperties();
-
-            //get table columns name
-            StringBuilder columns = new();
-            foreach (PropertyInfo prop in props)
-            {
-                columns.Append($"{prop.Name,-_columnLength}|");
-            }
-            columns.AppendLine();
-            columns.Append(new string('-', (_columnLength + 1) * props.Length));
-            Console.WriteLine(columns);
-
-            //get table data
-            StringBuilder rows = new();
-
-            foreach (var item in _data)
-            {
-                foreach (PropertyInfo prop in props)
-                {
-                    rows.Append($"{prop.GetValue(item),-20}|");
-                }
-                rows.AppendLine();
-            }
-            Console.WriteLine(rows);
+            Console.Write($"{prop.Name,-_columnWidth}|");
         }
+        Console.WriteLine();
+        Console.Write(new string('-', (_columnWidth + 1) * properties.Length));
+        Console.WriteLine();
 
-
+        //Print table data
+        foreach (var item in data)
+        {
+            foreach (PropertyInfo property in properties)
+            {
+                Console.Write($"{property.GetValue(item),-_columnWidth}|");
+            }
+            Console.WriteLine();
+        }
+        Console.WriteLine();
     }
 }

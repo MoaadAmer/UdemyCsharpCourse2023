@@ -6,10 +6,7 @@ public class PlanetsStatsUserInteractor(IUserInteractor userInteractor) : IPlane
 {
     public void ShowPlanets(IEnumerable<Planet> planets)
     {
-        foreach (var planet in planets)
-        {
-            ShowMessage(planet.ToString());
-        }
+        userInteractor.PrintTable(planets); ;
     }
 
     public string? ChooseStatisticsToBeShown(IEnumerable<string> stats)

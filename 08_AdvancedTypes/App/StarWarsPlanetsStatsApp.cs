@@ -12,11 +12,7 @@ public class StarWarsPlanetsStatsApp(IPlanetsReader planetsReader,
     public async Task RunAsync()
     {
         IEnumerable<Planet> planets = await planetsReader.ReadAsync();
-
-        //var tablePrinter = new UniversalTablePrinter(planets);
-        //tablePrinter.PrintToConsole();
         planetsStatsUserInteractor.ShowPlanets(planets);
-
         planetStatisticsAnalyzer.Analyze(planets);
     }
 
