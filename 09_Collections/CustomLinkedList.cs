@@ -1,0 +1,80 @@
+﻿using System.Collections;
+
+namespace _09_Collections
+{
+    public class CustomLinkedList<T> : ILinkedList<T>
+    {
+        public Node<T>? Head { get; private set; }
+        public Node<T>? Tail { get; private set; }
+
+        public CustomLinkedList()
+        {
+        }
+
+
+        public int Count { get; private set; }
+
+        public bool IsReadOnly => throw new NotImplementedException();
+
+        public void Add(T item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void AddToEnd(T item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void AddToFront(T item)
+        {
+            if (Head == null)
+            {
+                Head = Tail = new Node<T>(item, null);
+            }
+            else
+            {
+                var newHead = new Node<T>(item, Head);
+                Head = newHead;
+            }
+        }
+
+        public void Clear()
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Contains(T item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void CopyTo(T[] array, int arrayIndex)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerator<T> GetEnumerator()
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Remove(T item)
+        {
+            throw new NotImplementedException();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+
+
+    public interface ILinkedList<T> : ICollection<T>
+    {
+        void AddToFront(T item);
+        void AddToEnd(T item);
+    }
+}
