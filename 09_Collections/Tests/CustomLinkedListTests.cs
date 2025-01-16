@@ -80,4 +80,24 @@ public class CustomLinkedListTests
         Assert.IsNotNull(linkedList.Tail);
         Assert.AreEqual("10", linkedList.Tail.Data);
     }
+
+    [TestMethod]
+    public void ContainsTest()
+    {
+        var linkedList = new CustomLinkedList<string>();
+
+
+        Assert.IsFalse(linkedList.Contains("hello world"));
+
+        linkedList.Add("10");
+        linkedList.Add("hello world");
+        linkedList.AddToFront("aa");
+        linkedList.AddToEnd("bb");
+
+        Assert.IsTrue(linkedList.Contains("10"));
+
+        Assert.IsTrue(linkedList.Contains("hello world"));
+
+        Assert.IsFalse(linkedList.Contains("hello world__"));
+    }
 }

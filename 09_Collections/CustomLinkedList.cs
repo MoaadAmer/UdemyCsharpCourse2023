@@ -58,7 +58,16 @@ namespace _09_Collections
 
         public bool Contains(T item)
         {
-            throw new NotImplementedException();
+            var temp = Head;
+            while (temp != null && temp.Data != null)
+            {
+                if (temp.Data.Equals(item))
+                {
+                    return true;
+                }
+                temp = temp.Next;
+            }
+            return false;
         }
 
         public void CopyTo(T[] array, int arrayIndex)
