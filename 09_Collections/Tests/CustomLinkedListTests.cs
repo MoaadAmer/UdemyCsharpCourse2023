@@ -55,5 +55,29 @@ public class CustomLinkedListTests
         Assert.IsNotNull(linkedList.Count);
         Assert.AreEqual(2, linkedList.Count);
 
+        linkedList.Add(-50);
+
+        Assert.IsNotNull(linkedList.Count);
+        Assert.AreEqual(3, linkedList.Count);
+
+    }
+
+    [TestMethod]
+    public void AddTest()
+    {
+        var linkedList = new CustomLinkedList<string>();
+
+        linkedList.Add("10");
+
+        Assert.IsNotNull(linkedList.Head);
+        Assert.AreEqual("10", linkedList.Head.Data);
+
+        linkedList.Add("hello world");
+
+        Assert.IsNotNull(linkedList.Head);
+        Assert.AreEqual("hello world", linkedList.Head.Data);
+
+        Assert.IsNotNull(linkedList.Tail);
+        Assert.AreEqual("10", linkedList.Tail.Data);
     }
 }

@@ -18,7 +18,7 @@ namespace _09_Collections
 
         public void Add(T item)
         {
-            throw new NotImplementedException();
+            AddToFront(item);
         }
 
         public void AddToEnd(T item)
