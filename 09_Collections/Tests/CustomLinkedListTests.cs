@@ -37,4 +37,23 @@ public class CustomLinkedListTests
         Assert.AreEqual(2, linkedList.Tail.Data);
 
     }
+    [TestMethod]
+    public void CountTest()
+    {
+        var linkedList = new CustomLinkedList<int>();
+
+        Assert.IsNotNull(linkedList.Count);
+        Assert.AreEqual(0, linkedList.Count);
+
+        linkedList.AddToFront(10);
+
+        Assert.IsNotNull(linkedList.Count);
+        Assert.AreEqual(1, linkedList.Count);
+
+        linkedList.AddToEnd(7);
+
+        Assert.IsNotNull(linkedList.Count);
+        Assert.AreEqual(2, linkedList.Count);
+
+    }
 }

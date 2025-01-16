@@ -34,6 +34,7 @@ namespace _09_Collections
                 Tail.Next = newTail;
                 Tail = newTail;
             }
+            Count++;
         }
 
         public void AddToFront(T item)
@@ -47,6 +48,7 @@ namespace _09_Collections
                 var newHead = new Node<T>(item, Head);
                 Head = newHead;
             }
+            Count++;
         }
 
         public void Clear()
