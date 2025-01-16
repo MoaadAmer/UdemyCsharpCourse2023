@@ -23,7 +23,17 @@ namespace _09_Collections
 
         public void AddToEnd(T item)
         {
-            throw new NotImplementedException();
+            if (Tail is null)
+            {
+                Head = Tail = new Node<T>(item, null);
+            }
+
+            else
+            {
+                var newTail = new Node<T>(item, null);
+                Tail.Next = newTail;
+                Tail = newTail;
+            }
         }
 
         public void AddToFront(T item)

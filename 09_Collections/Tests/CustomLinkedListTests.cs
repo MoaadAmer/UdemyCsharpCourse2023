@@ -11,9 +11,30 @@ public class CustomLinkedListTests
     {
         var linkedList = new CustomLinkedList<int>();
         linkedList.AddToFront(1);
+
+        Assert.IsNotNull(linkedList.Head);
+        Assert.AreEqual(1, linkedList.Head.Data);
+
         linkedList.AddToFront(2);
 
         Assert.IsNotNull(linkedList.Head);
         Assert.AreEqual(2, linkedList.Head.Data);
+    }
+
+    [TestMethod]
+    public void AddToEndTest()
+    {
+        var linkedList = new CustomLinkedList<int>();
+
+        linkedList.AddToEnd(1);
+
+        Assert.IsNotNull(linkedList.Tail);
+        Assert.AreEqual(1, linkedList.Tail.Data);
+
+        linkedList.AddToEnd(2);
+
+        Assert.IsNotNull(linkedList.Tail);
+        Assert.AreEqual(2, linkedList.Tail.Data);
+
     }
 }
