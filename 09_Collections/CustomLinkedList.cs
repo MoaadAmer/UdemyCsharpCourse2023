@@ -72,7 +72,22 @@ namespace _09_Collections
 
         public void CopyTo(T[] array, int arrayIndex)
         {
-            throw new NotImplementedException();
+            ArgumentNullException.ThrowIfNull(array);
+            if (arrayIndex < 0 || arrayIndex > array.Length)
+            {
+                throw new ArgumentOutOfRangeException("array index is invalid");
+            }
+            if (array.Length < Count)
+            {
+                throw new ArgumentException("array size is smaller than the linked list");
+            }
+
+            var temp = Head;
+            for (int i = arrayIndex; (i - arrayIndex) < Count; i++)
+            {
+                array[i] = temp.Data;
+                temp = temp.Next;
+            }
         }
 
         public IEnumerator<T> GetEnumerator()

@@ -100,4 +100,65 @@ public class CustomLinkedListTests
 
         Assert.IsFalse(linkedList.Contains("hello world__"));
     }
+
+    [TestMethod]
+    public void CopyToTest()
+    {
+        //copy at index 0
+        var linkedList = new CustomLinkedList<int>();
+        var array = new int[5];
+
+        linkedList.AddToEnd(1);
+        linkedList.AddToEnd(2);
+        linkedList.AddToEnd(3);
+        linkedList.AddToEnd(4);
+
+        linkedList.CopyTo(array, 0);
+
+        Assert.AreEqual(1, array[0]);
+        Assert.AreEqual(2, array[1]);
+        Assert.AreEqual(3, array[2]);
+        Assert.AreEqual(4, array[3]);
+        Assert.AreEqual(0, array[4]);
+
+
+        //copy at index 1
+        linkedList = new CustomLinkedList<int>();
+        array = new int[5];
+
+        linkedList.AddToEnd(1);
+        linkedList.AddToEnd(2);
+        linkedList.AddToEnd(3);
+        linkedList.AddToEnd(4);
+
+        linkedList.CopyTo(array, 1);
+
+        Assert.AreEqual(0, array[0]);
+        Assert.AreEqual(1, array[1]);
+        Assert.AreEqual(2, array[2]);
+        Assert.AreEqual(3, array[3]);
+        Assert.AreEqual(4, array[4]);
+
+        //Given null array
+        Assert.ThrowsException<ArgumentNullException>(() => linkedList.CopyTo(null, 5));
+
+        //Given Invalid index
+        Assert.ThrowsException<ArgumentOutOfRangeException>(() => linkedList.CopyTo(array, 10));
+
+
+        linkedList = new CustomLinkedList<int>();
+        array = new int[1];
+
+        linkedList.AddToEnd(1);
+        linkedList.AddToEnd(2);
+        linkedList.AddToEnd(3);
+        linkedList.AddToEnd(4);
+
+        //Given not long enough array
+        Assert.ThrowsException<ArgumentException>(() => linkedList.CopyTo(array, 0));
+
+
+
+    }
+
 }
