@@ -53,7 +53,8 @@ namespace _09_Collections
 
         public void Clear()
         {
-            throw new NotImplementedException();
+            Head = Tail = null;
+            Count = 0;
         }
 
         public bool Contains(T item)

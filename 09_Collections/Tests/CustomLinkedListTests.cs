@@ -180,7 +180,6 @@ public class CustomLinkedListTests
         linkedList.AddToEnd(3);
         linkedList.AddToEnd(4);
 
-        //Remove from the front
         Assert.IsFalse(linkedList.Remove(99));
         Assert.AreEqual(4, linkedList.Count);
     }
@@ -196,7 +195,6 @@ public class CustomLinkedListTests
         linkedList.AddToEnd(3);
         linkedList.AddToEnd(4);
 
-        //Remove from the front
         Assert.IsTrue(linkedList.Remove(1));
         Assert.AreEqual(2, linkedList.Head.Data);
         Assert.AreEqual(3, linkedList.Head.Next.Data);
@@ -213,7 +211,6 @@ public class CustomLinkedListTests
         linkedList.AddToEnd(3);
         linkedList.AddToEnd(4);
 
-        //Remove from the front
         Assert.IsTrue(linkedList.Remove(2));
         Assert.AreEqual(1, linkedList.Head.Data);
         Assert.AreEqual(3, linkedList.Head.Next.Data);
@@ -230,12 +227,31 @@ public class CustomLinkedListTests
         linkedList.AddToEnd(3);
         linkedList.AddToEnd(4);
 
-        //Remove from the front
         Assert.IsTrue(linkedList.Remove(4));
         Assert.AreEqual(1, linkedList.Head.Data);
         Assert.AreEqual(2, linkedList.Head.Next.Data);
         Assert.AreEqual(3, linkedList.Tail.Data);
         Assert.AreEqual(null, linkedList.Tail.Next);
         Assert.AreEqual(3, linkedList.Count);
+    }
+
+
+    [TestMethod]
+    public void ClearTest()
+    {
+        var linkedList = new CustomLinkedList<int>();
+
+        linkedList.AddToEnd(1);
+        linkedList.AddToEnd(2);
+        linkedList.AddToEnd(3);
+        linkedList.AddToEnd(4);
+
+        linkedList.Clear();
+
+        Assert.AreEqual(null, linkedList.Head);
+        Assert.AreEqual(null, linkedList.Head);
+        Assert.AreEqual(0, linkedList.Count);
+
+
     }
 }
