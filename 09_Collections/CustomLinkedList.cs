@@ -97,7 +97,38 @@ namespace _09_Collections
 
         public bool Remove(T item)
         {
-            throw new NotImplementedException();
+            var temp = Head;
+            if (temp != null && temp.Data != null && temp.Data.Equals(item))
+            {
+
+                Head = temp.Next;
+                temp.Next = null;
+                temp = null;
+                Count--;
+                return true;
+            }
+            while (temp != null && temp.Next != null)
+            {
+                if (temp.Next.Data != null && temp.Next.Data.Equals(item))
+                {
+                    //Tail
+                    if (temp.Next.Next == null)
+                    {
+                        temp.Next = null;
+                        Tail = temp;
+                    }
+                    else
+                    {
+                        temp.Next = temp.Next.Next;
+                        temp.Next.Next = null;
+                    }
+                    Count--;
+                    return true;
+                }
+
+                temp = temp.Next;
+            }
+            return false;
         }
 
         IEnumerator IEnumerable.GetEnumerator()
