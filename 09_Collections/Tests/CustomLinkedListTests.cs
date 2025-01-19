@@ -69,16 +69,24 @@ public class CustomLinkedListTests
 
         linkedList.Add("10");
 
+
         Assert.IsNotNull(linkedList.Head);
         Assert.AreEqual("10", linkedList.Head.Data);
+        Assert.IsNotNull(linkedList.Tail);
+        Assert.AreEqual("10", linkedList.Tail.Data);
+        Assert.AreEqual(1, linkedList.Count);
+
 
         linkedList.Add("hello world");
 
         Assert.IsNotNull(linkedList.Head);
-        Assert.AreEqual("hello world", linkedList.Head.Data);
-
+        Assert.AreEqual("10", linkedList.Head.Data);
         Assert.IsNotNull(linkedList.Tail);
-        Assert.AreEqual("10", linkedList.Tail.Data);
+        Assert.AreEqual("hello world", linkedList.Tail.Data);
+        Assert.AreEqual(2, linkedList.Count);
+
+
+
     }
 
     [TestMethod]

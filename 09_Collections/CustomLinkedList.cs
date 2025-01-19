@@ -18,7 +18,7 @@ namespace _09_Collections
 
         public void Add(T item)
         {
-            AddToFront(item);
+            AddToEnd(item);
         }
 
         public void AddToEnd(T item)
