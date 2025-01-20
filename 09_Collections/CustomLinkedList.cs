@@ -92,14 +92,10 @@ namespace _09_Collections
 
         public IEnumerator<T> GetEnumerator()
         {
-            var res = new List<T>();
-            var temp = Head;
-            while (temp != null)
+            foreach (var node in GetNodes())
             {
-                res.Add(temp.Value);
-                temp = temp.Next;
+                yield return node.Value;
             }
-            return res.GetEnumerator();
         }
 
         public bool Remove(T item)
@@ -141,6 +137,16 @@ namespace _09_Collections
         IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
+        }
+
+        private IEnumerable<Node<T>> GetNodes()
+        {
+            var current = Head;
+            while (current != null)
+            {
+                yield return current;
+                current = current.Next;
+            }
         }
     }
 }
