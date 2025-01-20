@@ -13,12 +13,12 @@ public class CustomLinkedListTests
         linkedList.AddToFront(1);
 
         Assert.IsNotNull(linkedList.Head);
-        Assert.AreEqual(1, linkedList.Head.Data);
+        Assert.AreEqual(1, linkedList.Head.Value);
 
         linkedList.AddToFront(2);
 
         Assert.IsNotNull(linkedList.Head);
-        Assert.AreEqual(2, linkedList.Head.Data);
+        Assert.AreEqual(2, linkedList.Head.Value);
     }
 
     [TestMethod]
@@ -29,12 +29,12 @@ public class CustomLinkedListTests
         linkedList.AddToEnd(1);
 
         Assert.IsNotNull(linkedList.Tail);
-        Assert.AreEqual(1, linkedList.Tail.Data);
+        Assert.AreEqual(1, linkedList.Tail.Value);
 
         linkedList.AddToEnd(2);
 
         Assert.IsNotNull(linkedList.Tail);
-        Assert.AreEqual(2, linkedList.Tail.Data);
+        Assert.AreEqual(2, linkedList.Tail.Value);
 
     }
     [TestMethod]
@@ -71,18 +71,18 @@ public class CustomLinkedListTests
 
 
         Assert.IsNotNull(linkedList.Head);
-        Assert.AreEqual("10", linkedList.Head.Data);
+        Assert.AreEqual("10", linkedList.Head.Value);
         Assert.IsNotNull(linkedList.Tail);
-        Assert.AreEqual("10", linkedList.Tail.Data);
+        Assert.AreEqual("10", linkedList.Tail.Value);
         Assert.AreEqual(1, linkedList.Count);
 
 
         linkedList.Add("hello world");
 
         Assert.IsNotNull(linkedList.Head);
-        Assert.AreEqual("10", linkedList.Head.Data);
+        Assert.AreEqual("10", linkedList.Head.Value);
         Assert.IsNotNull(linkedList.Tail);
-        Assert.AreEqual("hello world", linkedList.Tail.Data);
+        Assert.AreEqual("hello world", linkedList.Tail.Value);
         Assert.AreEqual(2, linkedList.Count);
 
 
@@ -196,8 +196,8 @@ public class CustomLinkedListTests
         linkedList.AddToEnd(4);
 
         Assert.IsTrue(linkedList.Remove(1));
-        Assert.AreEqual(2, linkedList.Head.Data);
-        Assert.AreEqual(3, linkedList.Head.Next.Data);
+        Assert.AreEqual(2, linkedList.Head.Value);
+        Assert.AreEqual(3, linkedList.Head.Next.Value);
         Assert.AreEqual(3, linkedList.Count);
     }
 
@@ -212,8 +212,8 @@ public class CustomLinkedListTests
         linkedList.AddToEnd(4);
 
         Assert.IsTrue(linkedList.Remove(2));
-        Assert.AreEqual(1, linkedList.Head.Data);
-        Assert.AreEqual(3, linkedList.Head.Next.Data);
+        Assert.AreEqual(1, linkedList.Head.Value);
+        Assert.AreEqual(3, linkedList.Head.Next.Value);
         Assert.AreEqual(3, linkedList.Count);
     }
 
@@ -228,9 +228,9 @@ public class CustomLinkedListTests
         linkedList.AddToEnd(4);
 
         Assert.IsTrue(linkedList.Remove(4));
-        Assert.AreEqual(1, linkedList.Head.Data);
-        Assert.AreEqual(2, linkedList.Head.Next.Data);
-        Assert.AreEqual(3, linkedList.Tail.Data);
+        Assert.AreEqual(1, linkedList.Head.Value);
+        Assert.AreEqual(2, linkedList.Head.Next.Value);
+        Assert.AreEqual(3, linkedList.Tail.Value);
         Assert.AreEqual(null, linkedList.Tail.Next);
         Assert.AreEqual(3, linkedList.Count);
     }

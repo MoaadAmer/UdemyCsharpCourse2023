@@ -59,9 +59,9 @@ namespace _09_Collections
         public bool Contains(T item)
         {
             var temp = Head;
-            while (temp != null && temp.Data != null)
+            while (temp != null && temp.Value != null)
             {
-                if (temp.Data.Equals(item))
+                if (temp.Value.Equals(item))
                 {
                     return true;
                 }
@@ -85,7 +85,7 @@ namespace _09_Collections
             var temp = Head;
             for (int i = arrayIndex; (i - arrayIndex) < Count; i++)
             {
-                array[i] = temp.Data;
+                array[i] = temp.Value;
                 temp = temp.Next;
             }
         }
@@ -96,7 +96,7 @@ namespace _09_Collections
             var temp = Head;
             while (temp != null)
             {
-                res.Add(temp.Data);
+                res.Add(temp.Value);
                 temp = temp.Next;
             }
             return res.GetEnumerator();
@@ -105,7 +105,7 @@ namespace _09_Collections
         public bool Remove(T item)
         {
             var temp = Head;
-            if (temp != null && temp.Data != null && temp.Data.Equals(item))
+            if (temp != null && temp.Value != null && temp.Value.Equals(item))
             {
 
                 Head = temp.Next;
@@ -116,7 +116,7 @@ namespace _09_Collections
             }
             while (temp != null && temp.Next != null)
             {
-                if (temp.Next.Data != null && temp.Next.Data.Equals(item))
+                if (temp.Next.Value != null && temp.Next.Value.Equals(item))
                 {
                     //Tail
                     if (temp.Next.Next == null)
