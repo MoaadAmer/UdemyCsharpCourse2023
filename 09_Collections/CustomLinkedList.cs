@@ -11,10 +11,9 @@ namespace _09_Collections
         {
         }
 
-
         public int Count { get; private set; }
 
-        public bool IsReadOnly => throw new NotImplementedException();
+        public bool IsReadOnly => false;
 
         public void Add(T item)
         {
@@ -141,15 +140,7 @@ namespace _09_Collections
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            throw new NotImplementedException();
+            return GetEnumerator();
         }
-    }
-
-
-
-    public interface ILinkedList<T> : ICollection<T>
-    {
-        void AddToFront(T item);
-        void AddToEnd(T item);
     }
 }
