@@ -254,4 +254,23 @@ public class CustomLinkedListTests
 
 
     }
+
+    [TestMethod]
+    public void GetGenericEnumeratorTest()
+    {
+        var linkedList = new CustomLinkedList<int>();
+
+        linkedList.Add(1);
+        linkedList.Add(2);
+        linkedList.Add(3);
+        linkedList.Add(4);
+
+        var enumerator = linkedList.GetEnumerator();
+        Assert.IsInstanceOfType(enumerator, typeof(IEnumerator<int>));
+
+        foreach (var item in linkedList)
+        {
+            Assert.IsTrue(linkedList.Contains(item));
+        }
+    }
 }

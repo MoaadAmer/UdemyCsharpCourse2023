@@ -93,7 +93,14 @@ namespace _09_Collections
 
         public IEnumerator<T> GetEnumerator()
         {
-            throw new NotImplementedException();
+            var res = new List<T>();
+            var temp = Head;
+            while (temp != null)
+            {
+                res.Add(temp.Data);
+                temp = temp.Next;
+            }
+            return res.GetEnumerator();
         }
 
         public bool Remove(T item)
