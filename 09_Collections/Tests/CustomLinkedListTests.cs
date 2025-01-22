@@ -277,10 +277,11 @@ public class CustomLinkedListTests
 
         foreach (var item in list)
         {
-            Assert.AreEqual(null, item.Next, message: $"item value : {item.Value}");
+            Assert.IsNull( item.Next);
         }
 
-        Assert.AreEqual(null, linkedList.Head, message: $"item value : {linkedList.Head.Value}");
+        Assert.IsNull( linkedList.Head);
+        Assert.IsNull(linkedList.Tail);
 
 
 
