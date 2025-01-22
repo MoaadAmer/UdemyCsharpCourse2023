@@ -57,7 +57,7 @@ namespace _09_Collections
             {
                 Node<T> temp = current;
                 current = current.Next;
-                temp.Next= null;
+                temp.Next = null;
 
             }
             Head = Tail = null;
@@ -106,40 +106,40 @@ namespace _09_Collections
             }
         }
 
-        public bool Remove(T item)
+        public bool Remove(T? item)
         {
-            var temp = Head;
-            if (temp != null && temp.Value != null && temp.Value.Equals(item))
-            {
+            Node<T> current = Head;
+            Node<T> previous = null;
 
-                Head = temp.Next;
-                temp.Next = null;
-                temp = null;
-                Count--;
-                return true;
-            }
-            while (temp != null && temp.Next != null)
+
+            while (current != null)
             {
-                if (temp.Next.Value != null && temp.Next.Value.Equals(item))
+                if (current.Value == null && item == null ||
+                    current.Value != null && current.Value.Equals(item))
                 {
-                    //Tail
-                    if (temp.Next.Next == null)
+                    //Removing Head
+                    if (previous == null)
                     {
-                        temp.Next = null;
-                        Tail = temp;
+                        Head = current.Next;
                     }
+                    //Removing middle item
                     else
                     {
-                        temp.Next = temp.Next.Next;
-                        temp.Next.Next = null;
+                        previous.Next = current.Next;
+                    }
+                    //Removing Tail
+                    if (current.Next == null)
+                    {
+                        Tail = previous;
                     }
                     Count--;
                     return true;
                 }
-
-                temp = temp.Next;
+                previous = current;
+                current = current.Next;
             }
             return false;
+
         }
 
         IEnumerator IEnumerable.GetEnumerator()
