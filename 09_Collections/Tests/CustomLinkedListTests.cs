@@ -237,7 +237,7 @@ public class CustomLinkedListTests
 
 
     [TestMethod]
-    public void ClearTest()
+    public void AfterClearHeadAndTailShouldBeNullAndCount0Test()
     {
         var linkedList = new CustomLinkedList<int>();
 
@@ -249,8 +249,39 @@ public class CustomLinkedListTests
         linkedList.Clear();
 
         Assert.AreEqual(null, linkedList.Head);
-        Assert.AreEqual(null, linkedList.Head);
+        Assert.AreEqual(null, linkedList.Tail);
         Assert.AreEqual(0, linkedList.Count);
+
+
+    }
+
+    [TestMethod]
+    public void AfterClearAllNodeShouldBeNullTest()
+    {
+        var linkedList = new CustomLinkedList<int>();
+
+        linkedList.AddToEnd(1);
+        linkedList.AddToEnd(2);
+        linkedList.AddToEnd(3);
+        linkedList.AddToEnd(4);
+
+        var current = linkedList.Head;
+        var list = new List<Node<int>>();
+        while (current != null)
+        {
+            list.Add(current);
+            current = current.Next;
+        }
+
+        linkedList.Clear();
+
+        foreach (var item in list)
+        {
+            Assert.AreEqual(null, item.Next, message: $"item value : {item.Value}");
+        }
+
+        Assert.AreEqual(null, linkedList.Head, message: $"item value : {linkedList.Head.Value}");
+
 
 
     }

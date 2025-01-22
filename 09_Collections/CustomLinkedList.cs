@@ -52,6 +52,14 @@ namespace _09_Collections
 
         public void Clear()
         {
+            Node<T> current = Head;
+            while (current != null)
+            {
+                Node<T> temp = current;
+                current = current.Next;
+                temp.Next= null;
+
+            }
             Head = Tail = null;
             Count = 0;
         }
