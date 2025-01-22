@@ -64,19 +64,30 @@ namespace _09_Collections
             Count = 0;
         }
 
-        public bool Contains(T item)
+        public bool Contains(T? item)
         {
-            var temp = Head;
-            while (temp != null && temp.Value != null)
+            //var current = Head;
+            //while (current != null)
+            //{
+            //    if (current.Value == null && item == null ||
+            //        current.Value != null && current.Value.Equals(item))
+            //    {
+            //        return true;
+            //    }
+            //    current = current.Next;
+            //}
+            //return false;
+
+            if (item == null)
             {
-                if (temp.Value.Equals(item))
-                {
-                    return true;
-                }
-                temp = temp.Next;
+                return GetNodes().Any(node => node.Value is null);
             }
-            return false;
+            else
+            {
+                return GetNodes().Any(node => item.Equals(node.Value));
+            }
         }
+
 
         public void CopyTo(T[] array, int arrayIndex)
         {

@@ -101,12 +101,16 @@ public class CustomLinkedListTests
         linkedList.Add("hello world");
         linkedList.AddToFront("aa");
         linkedList.AddToEnd("bb");
+        linkedList.AddToEnd(null);
 
         Assert.IsTrue(linkedList.Contains("10"));
 
         Assert.IsTrue(linkedList.Contains("hello world"));
 
         Assert.IsFalse(linkedList.Contains("hello world__"));
+
+        Assert.IsTrue(linkedList.Contains(null));
+
     }
 
     [TestMethod]
@@ -277,10 +281,10 @@ public class CustomLinkedListTests
 
         foreach (var item in list)
         {
-            Assert.IsNull( item.Next);
+            Assert.IsNull(item.Next);
         }
 
-        Assert.IsNull( linkedList.Head);
+        Assert.IsNull(linkedList.Head);
         Assert.IsNull(linkedList.Tail);
 
 
