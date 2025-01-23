@@ -89,23 +89,22 @@ namespace _09_Collections
         }
 
 
-        public void CopyTo(T[] array, int arrayIndex)
+        public void CopyTo(T?[] array, int arrayIndex)
         {
             ArgumentNullException.ThrowIfNull(array);
-            if (arrayIndex < 0 || arrayIndex > array.Length)
+            if (arrayIndex < 0 || arrayIndex >= array.Length)
             {
                 throw new ArgumentOutOfRangeException("array index is invalid");
             }
-            if (array.Length < Count)
+            if (array.Length - arrayIndex < Count)
             {
                 throw new ArgumentException("array size is smaller than the linked list");
             }
 
-            var temp = Head;
-            for (int i = arrayIndex; (i - arrayIndex) < Count; i++)
+            foreach (var node in GetNodes())
             {
-                array[i] = temp.Value;
-                temp = temp.Next;
+                array[arrayIndex] = node.Value;
+                arrayIndex++;
             }
         }
 

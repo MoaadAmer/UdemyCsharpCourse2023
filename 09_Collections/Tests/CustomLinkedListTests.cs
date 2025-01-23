@@ -114,7 +114,7 @@ public class CustomLinkedListTests
     }
 
     [TestMethod]
-    public void CopyToTest()
+    public void CopyToIndex0Test()
     {
         //copy at index 0
         var linkedList = new CustomLinkedList<int>();
@@ -132,11 +132,16 @@ public class CustomLinkedListTests
         Assert.AreEqual(3, array[2]);
         Assert.AreEqual(4, array[3]);
         Assert.AreEqual(0, array[4]);
+    }
 
+
+    [TestMethod]
+    public void CopyToIndex1Test()
+    {
 
         //copy at index 1
-        linkedList = new CustomLinkedList<int>();
-        array = new int[5];
+        var linkedList = new CustomLinkedList<int>();
+        var array = new int[5];
 
         linkedList.AddToEnd(1);
         linkedList.AddToEnd(2);
@@ -151,15 +156,16 @@ public class CustomLinkedListTests
         Assert.AreEqual(3, array[3]);
         Assert.AreEqual(4, array[4]);
 
-        //Given null array
-        Assert.ThrowsException<ArgumentNullException>(() => linkedList.CopyTo(null, 5));
-
-        //Given Invalid index
-        Assert.ThrowsException<ArgumentOutOfRangeException>(() => linkedList.CopyTo(array, 10));
+    }
 
 
-        linkedList = new CustomLinkedList<int>();
-        array = new int[1];
+    [TestMethod]
+    public void CopyToSmallArrayTest()
+    {
+
+
+        var linkedList = new CustomLinkedList<int>();
+        var array = new int[1];
 
         linkedList.AddToEnd(1);
         linkedList.AddToEnd(2);
@@ -168,8 +174,47 @@ public class CustomLinkedListTests
 
         //Given not long enough array
         Assert.ThrowsException<ArgumentException>(() => linkedList.CopyTo(array, 0));
+    }
+
+    [TestMethod]
+    public void CopyToNullArrayTest()
+    {
+        var linkedList = new CustomLinkedList<int>();
+        Assert.ThrowsException<ArgumentNullException>(() => linkedList.CopyTo(null, 5));
+    }
+
+    [TestMethod]
+    public void CopyToInvalidIndexArrayTest()
+    {
+        var linkedList = new CustomLinkedList<int>();
+        var array = new int[3];
+
+        linkedList.Add(1);
+        linkedList.Add(2);
+        linkedList.Add(3);
+
+        Assert.ThrowsException<ArgumentOutOfRangeException>(() => linkedList.CopyTo(array, 3));
+
+        Assert.ThrowsException<ArgumentException>(() => linkedList.CopyTo(array, 2));
+
+    }
+
+    [TestMethod]
+    public void CopyTo_IndexLargerThanArrayLength_Test()
+    {
+        var linkedList = new CustomLinkedList<int>();
+        var array = new int[5];
+        Assert.ThrowsException<ArgumentOutOfRangeException>(() => linkedList.CopyTo(array, 10));
+
+    }
 
 
+    [TestMethod]
+    public void CopyTo_NegativeIndex_Test()
+    {
+        var linkedList = new CustomLinkedList<int>();
+        var array = new int[5];
+        Assert.ThrowsException<ArgumentOutOfRangeException>(() => linkedList.CopyTo(array, -1));
 
     }
 
