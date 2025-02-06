@@ -12,19 +12,19 @@ public class TicketFormatter : ITicketFormatter
     }
 
     private static string[] SplitText(string pageText) =>
-        pageText.Split(["Title", "Date", "Time", "Visit us"], StringSplitOptions.TrimEntries);
+        pageText.Split(["Title:", "Date:", "Time:", "Visit us:"], StringSplitOptions.TrimEntries);
 
     private static string FormatTickets(List<string> lines, CultureInfo culture)
     {
         var stringBuilder = new StringBuilder();
 
         //Skip First and last lines
-        for (int i = 1; i < lines.Count - 1; i += 3)
+        for (int i = 1; i < lines.Count - 3; i += 3)
         {
             stringBuilder.Append($"{lines[i],-40}| ");
-            DateTime dateTime = DateTime.Parse($"{lines[i + 1]} {lines[i + 2]}", culture);
+            DateTime dateTime = DateTime.Parse($"{lines[i + 1]} {lines[i + 2]}", CultureInfo.InvariantCulture);
             stringBuilder.Append($"{dateTime.Date.ToString("dd/MM/yyyy"),-11}| ");
-            stringBuilder.Append($"{dateTime.Hour}:{dateTime.Hour,-6}");
+            stringBuilder.Append($"{dateTime.Hour}:{dateTime.Minute,-6}");
             stringBuilder.AppendLine();
         }
         return stringBuilder.ToString();
