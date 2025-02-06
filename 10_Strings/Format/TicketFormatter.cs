@@ -8,38 +8,38 @@ public class TicketFormatter : ITicketFormatter
     public string FormatTicket(string ticket)
     {
         string[] tickets = SplitText(ticket);
-        return FormatTickets(tickets.ToList(), GetCulture(tickets.Last()));
+        return FormatTickets(tickets.ToList());
     }
 
     private static string[] SplitText(string pageText) =>
         pageText.Split(["Title:", "Date:", "Time:", "Visit us:"], StringSplitOptions.TrimEntries);
 
-    private static string FormatTickets(List<string> lines, CultureInfo culture)
+    private static string FormatTickets(List<string> lines)
     {
         var stringBuilder = new StringBuilder();
-
+        CultureInfo culture = GetCulture(lines[^1]);
         //Skip First and last lines
         for (int i = 1; i < lines.Count - 3; i += 3)
         {
-            stringBuilder.Append($"{lines[i],-40}| ");
-            DateTime dateTime = DateTime.Parse($"{lines[i + 1]} {lines[i + 2]}", CultureInfo.InvariantCulture);
-            stringBuilder.Append($"{dateTime.Date.ToString("dd/MM/yyyy"),-11}| ");
-            stringBuilder.Append($"{dateTime.Hour}:{dateTime.Minute,-6}");
-            stringBuilder.AppendLine();
+            string title = lines[i];
+            string date = DateOnly.Parse(lines[i + 1], culture).ToString(CultureInfo.InvariantCulture);
+            string time = TimeOnly.Parse(lines[i + 2], culture).ToString(CultureInfo.InvariantCulture);
+               stringBuilder.AppendLine($"{title,-40}| {date,-11}| {time,-6}");
         }
         return stringBuilder.ToString();
     }
 
-    private static CultureInfo GetCulture(string visitUsLine)
+    private static CultureInfo GetCulture(string webAddress)
     {
-        var cultures = new Dictionary<string, string>()
+        var domainToCulture = new Dictionary<string, string>()
                             {
-                                { "fr" ,"fr-FR" },
-                                { "com" ,"en-US" },
-                                { "jp" ,"jp-JP" },
+                                { ".fr" ,"fr-FR" },
+                                { ".com" ,"en-US" },
+                                { ".jp" ,"jp-JP" },
                             };
+        int index = webAddress.LastIndexOf('.');
+        string domain = webAddress.Substring(index);
 
-        var arr = visitUsLine.Replace("Visit us:", "").Trim().Split(".");
-        return new CultureInfo(cultures[arr[^1]]);
+        return new CultureInfo(domainToCulture[domain]);
     }
 }

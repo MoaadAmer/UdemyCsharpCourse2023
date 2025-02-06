@@ -18,7 +18,8 @@ public class TicketsDataAggregatorApp(IPdfFile pdfFile, ITicketFormatter ticketF
             string pageText = pdfFile.ReadPage(file, 1);
             tickets.Append(ticketFormatter.FormatTicket(pageText));
         }
-        File.WriteAllText(Path.Combine(binFolder, "AssignmentFiles", "Tickets", "aggregatedTickets.txt"), tickets.ToString());
+        string resultFilePath = Path.Combine(binFolder, "AssignmentFiles", "Tickets", "aggregatedTickets.txt");
+        File.WriteAllText(resultFilePath, tickets.ToString());
     }
 
 }
