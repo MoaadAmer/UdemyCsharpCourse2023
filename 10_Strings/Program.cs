@@ -1,8 +1,11 @@
 ﻿using _10_Strings;
+using _10_Strings.PDF;
 
 try
 {
-    var app = new TicketsDataAggregatorApp();
+    IPdfFile pdfFile = new PigPdfFile();
+    ITicketFormatter ticketFormatter = new TicketFormatter();
+    var app = new TicketsDataAggregatorApp(pdfFile,ticketFormatter);
     app.Run();
 }
 catch (Exception ex)
