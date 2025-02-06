@@ -1,5 +1,8 @@
-﻿public interface ITicketFormatter
+﻿namespace _10_Strings.Format
 {
-    string FormatTicket(string ticket);
+    public interface ITicketFormatter
+    {
+        string FormatTicket(string ticket);
 
+    }
 }

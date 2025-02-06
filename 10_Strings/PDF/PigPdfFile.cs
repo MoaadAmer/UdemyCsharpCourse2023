@@ -8,10 +8,8 @@ public class PigPdfFile : IPdfFile
 
     public string ReadPage(string filePath, int pageNumber)
     {
-        using (PdfDocument document = PdfDocument.Open(filePath))
-        {
-            Page page = document.GetPage(1);
-            return page.Text;
-        }
+        using PdfDocument document = PdfDocument.Open(filePath);
+        Page page = document.GetPage(1);
+        return page.Text;
     }
 }

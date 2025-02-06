@@ -1,19 +1,11 @@
-﻿using _10_Strings.Helpers;
+﻿using _10_Strings.Format;
+using _10_Strings.Helpers;
 using _10_Strings.PDF;
 using System.Text;
 
 namespace _10_Strings.App;
-public class TicketsDataAggregatorApp
+public class TicketsDataAggregatorApp(IPdfFile pdfFile, ITicketFormatter ticketFormatter)
 {
-    private readonly IPdfFile pdfFile;
-    private readonly ITicketFormatter ticketFormatter;
-
-    public TicketsDataAggregatorApp(IPdfFile pdfFile, ITicketFormatter ticketFormatter)
-    {
-        this.pdfFile = pdfFile;
-        this.ticketFormatter = ticketFormatter;
-    }
-
     public void Run()
     {
 

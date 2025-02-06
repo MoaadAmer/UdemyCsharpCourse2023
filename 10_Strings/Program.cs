@@ -1,4 +1,5 @@
-﻿using _10_Strings;
+﻿using _10_Strings.App;
+using _10_Strings.Format;
 using _10_Strings.PDF;
 
 try
