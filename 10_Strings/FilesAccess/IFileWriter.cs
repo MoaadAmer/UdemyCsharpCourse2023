@@ -1,8 +1,7 @@
-﻿namespace _10_Strings.App;
-public partial class TicketsDataAggregatorApp
+﻿namespace _10_Strings.FilesAccess;
+
+public interface IFileWriter
 {
-    public interface IFileWriter
-    {
-        void Write(string filePath, string content);
-    }
+    public void Write(string content, params string[] pathParts);
+
 }

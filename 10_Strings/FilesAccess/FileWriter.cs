@@ -1,11 +1,9 @@
-﻿namespace _10_Strings.App;
-public partial class TicketsDataAggregatorApp
-{
-    public class FileWriter : IFileWriter
+﻿namespace _10_Strings.FilesAccess;
+
+public class FileWriter : IFileWriter
     {
-        public void Write(string filePath, string content)
+        public void Write(string content, params string[] pathParts)
         {
-            File.WriteAllText(filePath, content);
+            File.WriteAllText(Path.Combine(pathParts), content);
         }
     }
-}

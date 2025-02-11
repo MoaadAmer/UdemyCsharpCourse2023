@@ -1,15 +1,13 @@
 ﻿using _10_Strings.App;
 using _10_Strings.FilesAccess;
 using _10_Strings.Helpers;
-using _10_Strings.PDF;
 
 try
 {
-
-
     string ticketsFolder = Path.Combine(PathHelper.GetBinFolderPath(), "AssignmentFiles", "Tickets");
     IPdfFile pdfFile = new PigPdfFile();
-    var app = new TicketsDataAggregatorApp(ticketsFolder,pdfFile);
+    IFileWriter fileWriter = new FileWriter();
+    var app = new TicketsDataAggregatorApp(ticketsFolder, pdfFile, fileWriter);
     app.Run();
 }
 catch (Exception ex)
