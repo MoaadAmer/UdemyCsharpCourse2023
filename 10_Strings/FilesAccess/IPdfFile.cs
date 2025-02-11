@@ -1,4 +1,4 @@
-﻿namespace _10_Strings.PDF
+﻿namespace _10_Strings.FilesAccess
 {
     public interface IPdfFile
     {
